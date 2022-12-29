@@ -1,7 +1,5 @@
 package listener;
 
-import com.google.gson.Gson;
-import football.Football;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -21,10 +19,9 @@ import javax.xml.transform.stream.StreamResult;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 
-public class SaveAsXMLListener implements ActionListener {
+public class SaveAsXMLDomListener implements ActionListener {
     private static JTextField numberField;
     private static JTextField positionField;
     private static JTextField salaryField;
@@ -37,7 +34,7 @@ public class SaveAsXMLListener implements ActionListener {
     private static String nameOfFile;
     private static JFrame frame;
 
-    public SaveAsXMLListener() {
+    public SaveAsXMLDomListener() {
         ageField = new JTextField();
         salaryField = new JTextField();
         numberField = new JTextField();

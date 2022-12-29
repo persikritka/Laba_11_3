@@ -1,17 +1,11 @@
 package menu;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import football.Football;
 import listener.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.FileWriter;
-import java.io.IOException;
 
 public class Menu extends JFrame{
     Gson gson;
@@ -156,7 +150,7 @@ public class Menu extends JFrame{
         salaryField = openListener.getSalaryField();
         positionField = openListener.getPositionField();
 
-        OpenXMLListener openXMLListener = new OpenXMLListener();
+        OpenXMLDomListener openXMLListener = new OpenXMLDomListener();
         openXMLListener.setFrame(this);
         openXMLListener.setAgeField(ageField);
         openXMLListener.setPositionField(positionField);
@@ -165,7 +159,7 @@ public class Menu extends JFrame{
         xmlDomOpen.addActionListener(openXMLListener);
 
 
-        SaveAsXMLListener saveAsXMLListener = new SaveAsXMLListener();
+        SaveAsXMLDomListener saveAsXMLListener = new SaveAsXMLDomListener();
         saveAsXMLListener.setFrame(this);
         saveAsXMLListener.setFileField(fileField);
         saveAsXMLListener.setAgeField(ageField);
@@ -174,6 +168,16 @@ public class Menu extends JFrame{
         saveAsXMLListener.setPositionField(positionField);
 
         xmlSaveDom.addActionListener(saveAsXMLListener);
+
+        SaveAsXMLSAXListener saveAsXMLSAXListener = new SaveAsXMLSAXListener();
+        saveAsXMLSAXListener.setFrame(this);
+        saveAsXMLSAXListener.setFileField(fileField);
+        saveAsXMLSAXListener.setAgeField(ageField);
+        saveAsXMLSAXListener.setNumberField(numberField);
+        saveAsXMLListener.setSalaryField(salaryField);
+        saveAsXMLListener.setPositionField(positionField);
+
+        xmlSaveSAX.addActionListener(saveAsXMLListener);
 
         OpenXMLSAXListener openXMLSAXListener = new OpenXMLSAXListener();
         openXMLSAXListener.setFrame(this);

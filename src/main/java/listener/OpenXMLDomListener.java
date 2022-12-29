@@ -1,8 +1,5 @@
 package listener;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import football.Football;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -16,11 +13,9 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 
-public class OpenXMLListener implements ActionListener {
+public class OpenXMLDomListener implements ActionListener {
     private JFileChooser fileChooser;
     private Football football;
     private JFrame frame;
@@ -35,7 +30,7 @@ public class OpenXMLListener implements ActionListener {
     private String[] strings;
     private int l;
 
-    public OpenXMLListener() {
+    public OpenXMLDomListener() {
         fileChooser = new JFileChooser();
         numberField = new JTextField();
         ageField = new JTextField();
