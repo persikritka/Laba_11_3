@@ -4,10 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import football.Football;
-import listener.OpenListener;
-import listener.OpenXMLListener;
-import listener.SaveAsXMLListener;
-import listener.SaveListener;
+import listener.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -89,34 +86,46 @@ public class Menu extends JFrame{
         JMenu open = new JMenu("Open");
         JMenuItem save = new JMenuItem("Save");
         JMenu saveAs = new JMenu("Save as");
-        JMenuItem gSon = new JMenuItem("Gson");
-        JMenuItem xml = new JMenuItem("XML");
+
+        JMenuItem gSonSave = new JMenuItem("Gson");
+        JMenu xmlSave = new JMenu("XML");
+
         JMenuItem gSonOpen = new JMenuItem("GSon");
         JMenu xmlOpen = new JMenu("XML");
+
         JMenuItem xmlDomOpen = new JMenuItem("Dom");
         JMenuItem xmlSaxOpen = new JMenuItem("SAX");
         JMenuItem xmlJaxbOpen = new JMenuItem("JAXB");
-        // Пункт меню из команды с выходом из программы
-        // Добавление к пункту меню изображения
-        //exit.setIcon(new ImageIcon("images/exit.png"));
-        // Добавим в меню пункта open
+
+        JMenuItem xmlSaveDom  = new JMenuItem("Dom");
+        JMenuItem xmlSaveSAX = new JMenuItem("SAX");
+        JMenuItem xmlSaveJAXB = new JMenuItem("JAXB");
+
         file.add(open);
-        // Добавление разделителя
         file.addSeparator();
         file.add(save);
         file.addSeparator();
         file.add(saveAs);
-        saveAs.add(gSon);
+
+        saveAs.add(gSonSave);
         saveAs.addSeparator();
-        saveAs.add(xml);
+        saveAs.add(xmlSave);
+
         open.add(gSonOpen);
         open.addSeparator();
         open.add(xmlOpen);
+
         xmlOpen.add(xmlDomOpen);
         xmlOpen.addSeparator();
         xmlOpen.add(xmlJaxbOpen);
         xmlOpen.addSeparator();
         xmlOpen.add(xmlSaxOpen);
+
+        xmlSave.add(xmlSaveDom);
+        xmlSave.addSeparator();
+        xmlSave.add(xmlSaveSAX);
+        xmlSave.addSeparator();
+        xmlSave.add(xmlSaveJAXB);
 
         SaveListener saveListener = new SaveListener();
         saveListener.setFrame(this);
@@ -126,7 +135,7 @@ public class Menu extends JFrame{
         saveListener.setPositionField(positionField);
         saveListener.setSalaryField(salaryField);
         save.addActionListener(saveListener);
-        gSon.addActionListener(saveListener);
+        gSonSave.addActionListener(saveListener);
 
         OpenListener openListener = new OpenListener();
         openListener.setFrame(this);
@@ -154,10 +163,7 @@ public class Menu extends JFrame{
         openXMLListener.setNumberField(numberField);
         openXMLListener.setSalaryField(salaryField);
         xmlDomOpen.addActionListener(openXMLListener);
-        numberField = openXMLListener.getNumberField();
-        salaryField = openXMLListener.getSalaryField();
-        positionField = openXMLListener.getPositionField();
-        ageField = openXMLListener.getAgeField();
+
 
         SaveAsXMLListener saveAsXMLListener = new SaveAsXMLListener();
         saveAsXMLListener.setFrame(this);
@@ -167,7 +173,16 @@ public class Menu extends JFrame{
         saveAsXMLListener.setSalaryField(salaryField);
         saveAsXMLListener.setPositionField(positionField);
 
-        xml.addActionListener(saveAsXMLListener);
+        xmlSaveDom.addActionListener(saveAsXMLListener);
+
+        OpenXMLSAXListener openXMLSAXListener = new OpenXMLSAXListener();
+        openXMLSAXListener.setFrame(this);
+        openXMLSAXListener.setAgeField(ageField);
+        openXMLSAXListener.setPositionField(positionField);
+        openXMLSAXListener.setSalaryField(salaryField);
+        openXMLSAXListener.setNumberField(numberField);
+        xmlSaxOpen.addActionListener(openXMLSAXListener);
+
 
         return file;
     }

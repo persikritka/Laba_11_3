@@ -1,8 +1,2 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><FootballPlayer>
-    <Player>
-        <Age>23</Age>
-        <Number>32</Number>
-        <Position>vratar</Position>
-        <Salary>34319</Salary>
-    </Player>
-<Player><Number>[Number: null]</Number><age>[age: null]</age><Position>[Position: null]</Position><Salary>[Salary: null]</Salary></Player><Player><Number>12</Number><age>23</age><Position>yopa</Position><Salary>3456</Salary></Player></FootballPlayer>
+<Player><Number>45</Number><age>23</age><Position>rfg</Position><Salary>34</Salary></Player></FootballPlayer>

@@ -5,86 +5,67 @@ import menu.Menu;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
+import org.xml.sax.helpers.DefaultHandler;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
+
+import javax.xml.parsers.*;
 import java.io.FileWriter;
 import java.io.IOException;
 
 public class Main {
     public static void main(String args[]) {
         new Menu();
-        /*System.out.println ("ActionListener.actionPerformed : save");
-       // Football user = new Football(1, 2, 456, 23);
-         Gson gson = new Gson();
+       // new SAX();
+       /* final String fileName = "Book.xml.txt";
 
         try {
-            FileWriter file = new FileWriter("test");
-            gson.toJson(345, file);
-            file.flush();
-            file.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }*/
-        Football user = new Football();
-      //  XMLSample xmlSample = new XMLSample();
-        String[] strings = new String[4];
-        int l = 0;
+            SAXParserFactory factory = SAXParserFactory.newInstance();
+            SAXParser saxParser = factory.newSAXParser();
 
-        /*try {
-            // Создается построитель документа
-            DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-            // Создается дерево DOM документа из файла
-            Document document = documentBuilder.parse("Book.xml.txt");
+            // Здесь мы определили анонимный класс, расширяющий класс DefaultHandler
+            DefaultHandler handler = new DefaultHandler() {
+                // Поле для указания, что тэг NAME начался
+                boolean name = false;
+                boolean number = false;
 
-            // Получаем корневой элемент
-            Node root = document.getDocumentElement();
+                // Метод вызывается когда SAXParser "натыкается" на начало тэга
+                @Override
+                public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+                    // Если тэг имеет имя NAME, то мы этот момент отмечаем - начался тэг NAME
+                    if (qName.equalsIgnoreCase("Age")) {
+                        name = true;
+                    }
+                    if(qName.equalsIgnoreCase("Number"))
+                        number = true;
+                }
 
-            // Просматриваем все подэлементы корневого - т.е. книги
-            NodeList footballsPlayer = root.getChildNodes();
-            for (int i = 0; i < footballsPlayer.getLength(); i++) {
-                Node player = footballsPlayer.item(i);
-                // Если нода не текст, то это книга - заходим внутрь
-                if (player.getNodeType() != Node.TEXT_NODE) {
-                    NodeList bookProps = player.getChildNodes();
-                    for (int j = 0; j < bookProps.getLength(); j++) {
-                        Node footballProp = bookProps.item(j);
-                        // Если нода не текст, то это один из параметров книги - печатаем
-                        if (footballProp.getNodeType() != Node.TEXT_NODE) {
-                           // System.out.println(footballProp.getNodeName() + ":" + footballProp.getChildNodes().item(0).getTextContent());
-                            String str = footballProp.getChildNodes().item(0).getTextContent();
-                            strings[l] = str;
-                            if(l == 0) {
-                                user.setAge(Integer.parseInt(strings[l]));
-                            } else if(l == 1) {
-                                user.setNumber(Integer.parseInt(strings[l]));
-                            } else if (l == 2) {
-                                user.setPosition(strings[l]);
-                            } else if (l == 3) {
-                                user.setSalary(Integer.parseInt(strings[l]));
-                            }
-                            l++;
-                           // System.out.println(str);
-                        }
+                // Метод вызывается когда SAXParser считывает текст между тэгами
+                @Override
+                public void characters(char ch[], int start, int length) throws SAXException {
+                    // Если перед этим мы отметили, что имя тэга NAME - значит нам надо текст использовать.
+                    if (name) {
+                        System.out.println("Age: " + new String(ch, start, length));
+                        name = false;
+                    } if(number) {
+                        System.out.println("Number: " + new String(ch, start, length));
+                        number = false;
                     }
                 }
-            }
 
-        } catch (ParserConfigurationException ex) {
-            ex.printStackTrace(System.out);
-        } catch (SAXException ex) {
-            ex.printStackTrace(System.out);
-        } catch (IOException ex) {
-            ex.printStackTrace(System.out);
-        }
-        for (int k = 0; k < strings.length; k++) {
-            System.out.println(strings[k]);
-        }
-       System.out.println(user);
-    }
-*/
+
+
+            };
+
+            // Стартуем разбор методом parse, которому передаем наследника от DefaultHandler, который будет вызываться в нужные моменты
+            saxParser.parse(fileName, handler);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }*/
+
+
     } }
 
 
