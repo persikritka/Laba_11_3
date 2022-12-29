@@ -107,15 +107,17 @@ public class SaveAsXMLSAXListener  implements ActionListener {
             xsw.writeStartElement("Player");
 
                 xsw.writeStartElement("Player");
-                xsw.writeAttribute("number", Integer.toString(player.getNumber()));
+                xsw.writeStartElement("number");
+                xsw.writeCharacters(Integer.toString(player.getNumber()));
+                xsw.writeEndElement();
                 xsw.writeStartElement("age");
                 xsw.writeCharacters(Integer.toString(player.getAge()));
                 xsw.writeEndElement();
                 xsw.writeStartElement("position");
                 xsw.writeCharacters(player.getPosition());
+                xsw.writeEndElement();
                 xsw.writeStartElement("salary");
                 xsw.writeCharacters(Integer.toString(player.getSalary()));
-                xsw.writeEndElement();
                 xsw.writeEndElement();
 
 

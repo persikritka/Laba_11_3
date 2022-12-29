@@ -10,9 +10,12 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
 import javax.xml.parsers.*;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 
 public class Main {
     public static void main(String args[]) {
@@ -64,6 +67,31 @@ public class Main {
         } catch (Exception e) {
             e.printStackTrace();
         }*/
+
+
+        JAXBContext context;
+        try {
+            context = JAXBContext.newInstance(Football.class);
+        } catch (JAXBException ex) {
+            throw new RuntimeException(ex);
+        }
+        Unmarshaller um = null;
+        try {
+            um = context.createUnmarshaller();
+        } catch (JAXBException ex) {
+            throw new RuntimeException(ex);
+        }
+        Football bookstore = null;
+        try {
+            bookstore = (Football) um.unmarshal(new InputStreamReader(
+                    new FileInputStream("test4.xml"), StandardCharsets.UTF_8));
+        } catch (JAXBException ex) {
+            throw new RuntimeException(ex);
+        } catch (FileNotFoundException ex) {
+            throw new RuntimeException(ex);
+        }
+
+        System.out.println(bookstore);
 
 
     } }

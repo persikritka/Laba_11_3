@@ -1,10 +1,19 @@
 package football;
 
+
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
+@XmlRootElement(namespace = "com.zetcode")
+@XmlType(propOrder = { "author", "name", "publisher", "isbn" })
+
 public class Football {
     private int number;
     private String position;
     private int salary;
     private int age;
+    // XmLElementWrapper генерирует элемент-оболочку вокруг представления XML
+
 
     public Football(){}
 

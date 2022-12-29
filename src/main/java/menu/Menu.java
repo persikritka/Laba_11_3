@@ -91,7 +91,7 @@ public class Menu extends JFrame{
         JMenuItem xmlSaxOpen = new JMenuItem("SAX");
         JMenuItem xmlJaxbOpen = new JMenuItem("JAXB");
 
-        JMenuItem xmlSaveDom  = new JMenuItem("Dom");
+        JMenuItem xmlSaveDom = new JMenuItem("Dom");
         JMenuItem xmlSaveSAX = new JMenuItem("SAX");
         JMenuItem xmlSaveJAXB = new JMenuItem("JAXB");
 
@@ -150,6 +150,16 @@ public class Menu extends JFrame{
         salaryField = openListener.getSalaryField();
         positionField = openListener.getPositionField();
 
+        SaveAsXMLSAXListener saveAsXMLSAXListener = new SaveAsXMLSAXListener();
+        saveAsXMLSAXListener.setFrame(this);
+        saveAsXMLSAXListener.setFileField(fileField);
+        saveAsXMLSAXListener.setAgeField(ageField);
+        saveAsXMLSAXListener.setNumberField(numberField);
+        saveAsXMLSAXListener.setSalaryField(salaryField);
+        saveAsXMLSAXListener.setPositionField(positionField);
+
+        xmlSaveSAX.addActionListener(saveAsXMLSAXListener);
+
         OpenXMLDomListener openXMLListener = new OpenXMLDomListener();
         openXMLListener.setFrame(this);
         openXMLListener.setAgeField(ageField);
@@ -166,18 +176,8 @@ public class Menu extends JFrame{
         saveAsXMLListener.setNumberField(numberField);
         saveAsXMLListener.setSalaryField(salaryField);
         saveAsXMLListener.setPositionField(positionField);
-
         xmlSaveDom.addActionListener(saveAsXMLListener);
 
-        SaveAsXMLSAXListener saveAsXMLSAXListener = new SaveAsXMLSAXListener();
-        saveAsXMLSAXListener.setFrame(this);
-        saveAsXMLSAXListener.setFileField(fileField);
-        saveAsXMLSAXListener.setAgeField(ageField);
-        saveAsXMLSAXListener.setNumberField(numberField);
-        saveAsXMLListener.setSalaryField(salaryField);
-        saveAsXMLListener.setPositionField(positionField);
-
-        xmlSaveSAX.addActionListener(saveAsXMLListener);
 
         OpenXMLSAXListener openXMLSAXListener = new OpenXMLSAXListener();
         openXMLSAXListener.setFrame(this);
@@ -187,6 +187,22 @@ public class Menu extends JFrame{
         openXMLSAXListener.setNumberField(numberField);
         xmlSaxOpen.addActionListener(openXMLSAXListener);
 
+        SaveASJAXBListener saveASJAXBListener = new SaveASJAXBListener();
+        saveASJAXBListener.setFrame(this);
+        saveASJAXBListener.setAgeField(ageField);
+        saveASJAXBListener.setFileField(fileField);
+        saveASJAXBListener.setPositionField(positionField);
+        saveASJAXBListener.setNumberField(numberField);
+        saveASJAXBListener.setSalaryField(salaryField);
+        xmlSaveJAXB.addActionListener(saveASJAXBListener);
+
+        OpenXMLJAXBListener openXMLJAXBListener = new OpenXMLJAXBListener();
+        openXMLJAXBListener.setFrame(this);
+        openXMLJAXBListener.setAgeField(ageField);
+        openXMLJAXBListener.setPositionField(positionField);
+        openXMLJAXBListener.setSalaryField(salaryField);
+        openXMLJAXBListener.setNumberField(numberField);
+        xmlJaxbOpen.addActionListener(openXMLJAXBListener);
 
         return file;
     }
