@@ -23,6 +23,8 @@ public class SaveASJAXBListener implements ActionListener {
     private static String nameOfFile;
     private static JFrame frame;
     private Football football;
+    private JFileChooser fileChooser;
+    private File file;
 
     public SaveASJAXBListener() {
         ageField = new JTextField();
@@ -30,6 +32,7 @@ public class SaveASJAXBListener implements ActionListener {
         numberField = new JTextField();
         fileField = new JTextField();
         positionField = new JTextField();
+        fileChooser = new JFileChooser();
     }
     public void setAgeField(JTextField ageField) {
         this.ageField = ageField;
@@ -57,6 +60,16 @@ public class SaveASJAXBListener implements ActionListener {
     }
     @Override
     public void actionPerformed(ActionEvent e) {
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        int result = fileChooser.showSaveDialog(frame);
+        // Если файл выбран, то представим его в сообщении
+        if (result == JFileChooser.APPROVE_OPTION ) {
+            file = fileChooser.getSelectedFile();
+            nameOfFile = file.getAbsolutePath();
+            JOptionPane.showMessageDialog(frame,
+                    "Файл " + fileChooser.getSelectedFile().getName() +
+                            " сохранен");
+        }
         try {
             number = Integer.parseInt(numberField.getText());
         } catch (NumberFormatException ex) {
@@ -73,7 +86,7 @@ public class SaveASJAXBListener implements ActionListener {
             JOptionPane.showMessageDialog(frame, "Please, enter the correct salary");
         }
         position = positionField.getText();
-        nameOfFile = fileField.getText();
+
         Football player = new Football();
         player.setSalary(salary);
         player.setPosition(position);

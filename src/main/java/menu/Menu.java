@@ -59,12 +59,12 @@ public class Menu extends JFrame{
         ageField = new JTextField(5);
         panelAge.add(ageField);
 
-        JPanel filePanel = new JPanel(new FlowLayout());
+        /*JPanel filePanel = new JPanel(new FlowLayout());
         add(filePanel);
         JLabel fileLabel = new JLabel("Enter the name of file");
         filePanel.add(fileLabel);
         fileField = new JTextField(10);
-        filePanel.add(fileField);
+        filePanel.add(fileField);*/
 
         menuBar.add(createFileMenu());
         setJMenuBar(menuBar);

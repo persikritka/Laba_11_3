@@ -18,6 +18,8 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -33,6 +35,8 @@ public class SaveAsXMLDomListener implements ActionListener {
     private static String position;
     private static String nameOfFile;
     private static JFrame frame;
+    private JFileChooser fileChooser;
+    private File fileToSave;
 
     public SaveAsXMLDomListener() {
         ageField = new JTextField();
@@ -40,6 +44,7 @@ public class SaveAsXMLDomListener implements ActionListener {
         numberField = new JTextField();
         fileField = new JTextField();
         positionField = new JTextField();
+        fileChooser = new JFileChooser();
     }
     public void setAgeField(JTextField ageField) {
         this.ageField = ageField;
@@ -67,29 +72,31 @@ public class SaveAsXMLDomListener implements ActionListener {
     }
     @Override
     public void actionPerformed(ActionEvent e) {
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        int result = fileChooser.showSaveDialog(frame);
+        // Если файл выбран, то представим его в сообщении
+        if (result == JFileChooser.APPROVE_OPTION ) {
+            fileToSave = fileChooser.getSelectedFile();
+            nameOfFile = fileToSave.getAbsolutePath();
+            JOptionPane.showMessageDialog(frame,
+                    "Файл " + fileChooser.getSelectedFile().getName() +
+                            " сохранен");}
         try {
-            // Создается построитель документа
+
             DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-            // Создается дерево DOM документа из файла
-              Document document = documentBuilder.parse("Book.xml.txt");
-          //  Document document = documentBuilder.parse("other.xml");
-            // Вызываем метод для добавления новой книги
+
+            Document document = documentBuilder.newDocument();
+
             addNewPlayer(document);
 
-        } catch (ParserConfigurationException | SAXException | IOException ex) {
+        } catch (ParserConfigurationException ex) {
             ex.printStackTrace(System.out);
-        } /*catch (SAXException ex) {
-            ex.printStackTrace(System.out);
-        } catch (IOException ex) {
-            ex.printStackTrace(System.out);
-        }*/
+        }
 
     }
 
-    // Функция добавления новой книги и записи результата в файл
     private static void addNewPlayer(Document document) throws TransformerFactoryConfigurationError, DOMException {
-        // Получаем корневой элемент
-        Node root = document.getDocumentElement();
+
         try {
             number = Integer.parseInt(numberField.getText());
         } catch (NumberFormatException ex) {
@@ -106,7 +113,7 @@ public class SaveAsXMLDomListener implements ActionListener {
             JOptionPane.showMessageDialog(frame, "Please, enter the correct salary");
         }
         position = positionField.getText();
-        nameOfFile = fileField.getText();
+
 
         // Создаем новую книгу по элементам
         // Сама книга <Book>
@@ -131,7 +138,7 @@ public class SaveAsXMLDomListener implements ActionListener {
         player.appendChild(positionEl);
         player.appendChild(salaryEl);
         // Добавляем книгу в корневой элемент
-        root.appendChild(player);
+        document.appendChild(player);
 
         // Записываем XML в файл
         writeDocument(document);
@@ -145,6 +152,7 @@ public class SaveAsXMLDomListener implements ActionListener {
             FileOutputStream fos = new FileOutputStream(nameOfFile + ".xml");
             StreamResult result = new StreamResult(fos);
             tr.transform(source, result);
+            fos.close();
         } catch (TransformerException | IOException e) {
             e.printStackTrace(System.out);
         }

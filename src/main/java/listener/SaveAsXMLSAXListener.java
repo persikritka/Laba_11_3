@@ -37,6 +37,8 @@ public class SaveAsXMLSAXListener  implements ActionListener {
     private static String position;
     private static String nameOfFile;
     private static JFrame frame;
+    private JFileChooser fileChooser;
+    private File file;
 
     public SaveAsXMLSAXListener() {
         ageField = new JTextField();
@@ -44,6 +46,7 @@ public class SaveAsXMLSAXListener  implements ActionListener {
         numberField = new JTextField();
         fileField = new JTextField();
         positionField = new JTextField();
+        fileChooser = new JFileChooser();
     }
     public void setAgeField(JTextField ageField) {
         this.ageField = ageField;
@@ -71,6 +74,16 @@ public class SaveAsXMLSAXListener  implements ActionListener {
     }
     @Override
     public void actionPerformed(ActionEvent e) {
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        int result = fileChooser.showSaveDialog(frame);
+        // Если файл выбран, то представим его в сообщении
+        if (result == JFileChooser.APPROVE_OPTION ) {
+            file = fileChooser.getSelectedFile();
+            nameOfFile = file.getAbsolutePath();
+            JOptionPane.showMessageDialog(frame,
+                    "Файл " + fileChooser.getSelectedFile().getName() +
+                            " сохранен");
+        }
         try {
             number = Integer.parseInt(numberField.getText());
         } catch (NumberFormatException ex) {
@@ -87,7 +100,7 @@ public class SaveAsXMLSAXListener  implements ActionListener {
             JOptionPane.showMessageDialog(frame, "Please, enter the correct salary");
         }
         position = positionField.getText();
-        nameOfFile = fileField.getText();
+
 /*
         ArrayList<User> users = new ArrayList<>();
        LocalDate date1 = LocalDate.of(2000, Month.MARCH, 21);
