@@ -1,12 +1,11 @@
 package listener;
 
 import football.Football;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
 
 import javax.swing.*;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.PropertyException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -75,23 +74,19 @@ public class SaveASJAXBListener implements ActionListener {
         }
         position = positionField.getText();
         nameOfFile = fileField.getText();
-        football = new Football(number, position, salary, age);
-        //File file = new File(nameOfFile);
-   /*     try {
-            personToXMLExample(nameOfFile, football);
-        } catch (Exception ex) {
-            throw new RuntimeException(ex);
-        }*/
-
+        Football player = new Football();
+        player.setSalary(salary);
+        player.setPosition(position);
+        player.setNumber(number);
+        player.setAge(age);
+        try {
+            JAXBContext context = null;
+                context = JAXBContext.newInstance(Football.class);
+                Marshaller mar = context.createMarshaller();
+                mar.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+                mar.marshal(player, new File(nameOfFile + ".xml"));
+            } catch (JAXBException ex) {
+                throw new RuntimeException(ex);
+            }
     }
-/*    private static  void personToXMLExample(String filename, Football person) throws Exception {
-        File file = new File(filename);
-        JAXBContext jaxbContext = JAXBContext.newInstance(Football.class);
-
-        Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-
-        jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-        jaxbMarshaller.marshal(person, file);
-        jaxbMarshaller.marshal(person, System.out);
-    }*/
 }

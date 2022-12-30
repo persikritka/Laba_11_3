@@ -96,7 +96,11 @@ public class SaveAsXMLSAXListener  implements ActionListener {
         users.add(new User("John Smith", 22, date1));
         users.add(new User("James Brown", 31, date2));
         users.add(new User("Tom Hanks", 16, date3));*/
-        Football player = new Football(number, position, salary, age);
+        Football player = new Football();
+        player.setAge(age);
+        player.setPosition(position);
+        player.setNumber(number);
+        player.setSalary(salary);
 
         // writes the users
         XMLOutputFactory xof = XMLOutputFactory.newInstance();

@@ -1,28 +1,22 @@
 package football;
 
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlType;
 
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
-
-@XmlRootElement(namespace = "com.zetcode")
-@XmlType(propOrder = { "author", "name", "publisher", "isbn" })
-
+@XmlRootElement(name = "Player")
+@XmlType(propOrder = { "age", "number", "position", "salary" })
 public class Football {
+  //  @XmlElement(name = "Number1")
     private int number;
+  //  @XmlElement(name = "Position1")
     private String position;
+  //  @XmlElement(name = "Salary1")
     private int salary;
+   // @XmlElement(name = "Age1")
     private int age;
     // XmLElementWrapper генерирует элемент-оболочку вокруг представления XML
 
-
-    public Football(){}
-
-    public Football(int number, String position, int salary, int age) {
-        this.number = number;
-        this.position = position;
-        this.salary = salary;
-        this.age = age;
-    }
 
     public void setAge(int age) {
         this.age = age;

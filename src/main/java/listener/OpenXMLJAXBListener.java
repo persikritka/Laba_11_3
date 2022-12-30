@@ -1,16 +1,14 @@
 package listener;
 
 import football.Football;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
 
 import javax.swing.*;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 
 public class OpenXMLJAXBListener implements ActionListener {
@@ -20,7 +18,7 @@ public class OpenXMLJAXBListener implements ActionListener {
     private JTextField numberField;
     private JTextField ageField;
     private JTextField salaryField;
-    private JTextField  positionField;
+    private JTextField positionField;
 
     public OpenXMLJAXBListener() {
         fileChooser = new JFileChooser();
@@ -86,31 +84,25 @@ public class OpenXMLJAXBListener implements ActionListener {
     public JTextField getSalaryField() {
         return salaryField;
     }
+
     @Override
     public void actionPerformed(ActionEvent e) {
-        JAXBContext context;
-        try {
-            context = JAXBContext.newInstance(Football.class);
-        } catch (JAXBException ex) {
-            throw new RuntimeException(ex);
+        int result = fileChooser.showOpenDialog(frame);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File file1 = fileChooser.getSelectedFile();
+            try {
+                JAXBContext context = JAXBContext.newInstance(Football.class);
+                Marshaller mar = context.createMarshaller();
+                mar.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+                Football unmarshal = (Football) context.createUnmarshaller()
+                        .unmarshal(new FileReader(file1));
+                numberField.setText(Integer.toString(unmarshal.getNumber()));
+                ageField.setText(Integer.toString(unmarshal.getAge()));
+                salaryField.setText(Integer.toString(unmarshal.getSalary()));
+                positionField.setText(unmarshal.getPosition());
+            } catch (JAXBException | FileNotFoundException ex) {
+                throw new RuntimeException(ex);
+            }
         }
-        Unmarshaller um = null;
-        try {
-            um = context.createUnmarshaller();
-        } catch (JAXBException ex) {
-            throw new RuntimeException(ex);
-        }
-        Football bookstore = null;
-        try {
-            bookstore = (Football) um.unmarshal(new InputStreamReader(
-                    new FileInputStream("test4.xml"), StandardCharsets.UTF_8));
-        } catch (JAXBException ex) {
-            throw new RuntimeException(ex);
-        } catch (FileNotFoundException ex) {
-            throw new RuntimeException(ex);
-        }
-
-            System.out.println(bookstore);
-
     }
 }

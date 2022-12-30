@@ -74,11 +74,15 @@ public class SaveListener implements ActionListener {
         position = positionField.getText();
         nameOfFile = fileField.getText();
 
-        Football user = new Football(number, position, salary, age);
+        Football player = new Football();
+        player.setSalary(salary);
+        player.setPosition(position);
+        player.setNumber(number);
+        player.setAge(age);
         Gson gson = new Gson();
         try {
             FileWriter file = new FileWriter(nameOfFile);
-            gson.toJson(user, file);
+            gson.toJson(player, file);
             file.flush();
             file.close();
         } catch (IOException e) {
